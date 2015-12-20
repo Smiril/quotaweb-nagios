@@ -9,7 +9,7 @@ first-release:
 howto:
 
 - Copy the diskx.php somewhere on your www server and chmod 755 diskx.php
-- edit crontab as user www-data or low-access user, and add " * /15  *  *  *  *  curl http://192.168.0.10/diskx.php > /tmp/wwwhdd"
+- edit crontab as user www-data or low-access user, and add " * /15  *  *  *  *  curl http://192.168.0.10/diskx.php >/tmp/wwwhdd"
 - copy the file check_quotahdd to your <nagios>/libexec dir (where all your other scripts for nagios probably reside).
 - edit <nagios>/etc/objects/commands.cfg and add the commands specified in the provided commands.cfg
 - edit <nagios>/etc/objects/server-file.cfg and add a definition for each user, as illustrated in the provided user.cfg
