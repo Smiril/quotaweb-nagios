@@ -21,14 +21,15 @@ else
                 gather=`cat $1`
                 used=`echo $gather|tr -d . | cut -d "-" -f2`
                 max=`echo $gather|cut -d "-" -f3`
+                total=`echo $gather|cut -d "-" -f4`
                 WARN=`echo $max*0.7|bc|cut -d "." -f1`
 
                         if  [ $used -gt $WARN ] ; then
-                                echo "used: ${used} MB of allowed: $max MB|MB=${used};;$max MB;; & 'total MB'=$max;;;;"
+                                echo "used: ${used} MB of free: $total MB and total space $max MB|MB=${used};;$total MB;; & 'total MB'=$max;;;;"
                                 exit $STATE_WARNING
 
                         elif [ $used -lt $WARN ] ; then
-                                echo "used: ${used} MB of allowed: $max MB|MB=${used};;$max MB;; & 'total MB'=$max;;;;"
+                                echo "used: ${used} MB of free:  $total MB and total space $max MB|MB=${used};;$total MB;; & 'total MB'=$max;;;;"
                                 exit $STATE_OK
                         else
                                 echo "UNKNOWN" $check
