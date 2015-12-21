@@ -1,7 +1,7 @@
 <?php
 $location = $_GET["disk"]; // this location where storagedirs are located linux server
-$sizedisk = floor( disk_free_space( $location )/ ( 1024 * 1024 ) );
-
+$sizefree = floor( disk_free_space( $location )/ ( 1024 * 1024 ) );
+$sizedisk = floor( disk_total_space( $location )/ ( 1024 * 1024 ) );
 function formatBytes($size1, $decimals = 0){
     $unit = array(
         '0' => 'Byte',
@@ -16,7 +16,7 @@ function formatBytes($size1, $decimals = 0){
     );
 
     for($i = 0; $size1 >= 1024 && $i <= count($unit); $i++){
-        $size1 = $size1/1024;
+        $size1 = $size1 /= 1024;
     }
 
     return round($size1, $decimals).'';
@@ -29,11 +29,12 @@ function formatBytes($size1, $decimals = 0){
     $sizecurb = substr ( $size, 0, strpos ( $size, "\t" ) );
     pclose ( $io );
 // check if user has higher then default quota
-    $maxquot = $sizedisk; 
+    $maxquot = $sizefree;
+    $maxspace = $sizedisk; 
 
 //print current usage in MB, and the max available space in MB
 
-echo "-".formatBytes($sizecurb, 2)."-".$maxquot."";
+echo "-".formatBytes($sizecurb)."-".$maxspace."-".$maxquot."";
 
 //close the connection
 ?>
